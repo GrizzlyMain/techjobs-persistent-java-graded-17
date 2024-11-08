@@ -61,7 +61,7 @@ public class HomeController {
             return "add";
         }
         Employer employer = employerRepository.findById(employerId).orElse(new Employer());
-//        Optional<Skill> skill= skillRepository.findById(skills);
+
         newJob.setEmployer(employer);
         jobRepository.save(newJob);
         return "redirect:";

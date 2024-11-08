@@ -60,6 +60,8 @@ public class HomeController {
 	    model.addAttribute("title", "Add Job");
             return "add";
         }
+
+
         Employer employer = employerRepository.findById(employerId).orElse(new Employer());
 
         newJob.setEmployer(employer);

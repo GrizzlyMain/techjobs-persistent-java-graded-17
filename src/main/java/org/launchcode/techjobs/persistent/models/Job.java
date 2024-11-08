@@ -2,9 +2,6 @@ package org.launchcode.techjobs.persistent.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.List;
 
 @Entity
 public class Job extends AbstractEntity{

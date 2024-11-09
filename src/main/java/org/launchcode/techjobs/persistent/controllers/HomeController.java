@@ -49,6 +49,7 @@ public class HomeController {
 	model.addAttribute("title", "Add Job");
     model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute(new Job());
+        model.addAttribute("skills", skillRepository.findAll());
         return "add";
     }
 

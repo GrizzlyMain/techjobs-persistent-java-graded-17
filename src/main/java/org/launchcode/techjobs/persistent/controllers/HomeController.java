@@ -63,7 +63,7 @@ public class HomeController {
         }
 
 
-        Employer employer = employerRepository.findById(employerId).orElse(new Employer());
+        Employer employer = employerRepository.findById(employerId).orElseThrow();
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
 
         newJob.setSkills(skillObjs);

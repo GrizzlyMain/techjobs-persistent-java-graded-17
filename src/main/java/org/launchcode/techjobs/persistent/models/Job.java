@@ -2,6 +2,8 @@ package org.launchcode.techjobs.persistent.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class Job extends AbstractEntity{
     private Employer employer;
 
     @ManyToMany
+    @Valid
     private  List<Skill> skills = new ArrayList<>();
 
 
@@ -21,14 +24,13 @@ public class Job extends AbstractEntity{
     }
 
     // Initialize the id and value fields.
-    public Job(Employer employer, List<Skill> skills) {
+    public Job(Employer newEmployer, List<Skill> newSkills) {
         super();
-        this.employer = employer;
-        this.skills = skills;
+        this.employer = newEmployer;
+        this.skills = newSkills;
     }
 
     // Getters and setters.
-    
 
 
     public Employer getEmployer() {

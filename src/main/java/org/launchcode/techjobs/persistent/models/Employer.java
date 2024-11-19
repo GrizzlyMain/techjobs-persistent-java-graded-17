@@ -3,7 +3,9 @@ package org.launchcode.techjobs.persistent.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -22,6 +24,10 @@ public class Employer extends AbstractEntity {
 
    public Employer(){}
 
+    public Employer(String location){
+       this.location = location;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -33,4 +39,7 @@ public class Employer extends AbstractEntity {
     public List<Job> getJobs() {
         return jobs;
     }
+
+
+
 }

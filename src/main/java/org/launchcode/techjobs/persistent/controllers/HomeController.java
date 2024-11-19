@@ -8,6 +8,7 @@ import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -24,22 +25,23 @@ import java.util.Optional;
 public class HomeController {
 
     @Autowired
-    private EmployerRepository employerRepository;
+     EmployerRepository employerRepository;
 
     @Autowired
-    private SkillRepository skillRepository;
+     SkillRepository skillRepository;
 
     @Autowired
-    private JobRepository jobRepository;
+    JobRepository jobRepository;
 
 
 
 
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public String index(Model model) {
 
         model.addAttribute("title", "MyJobs");
+        model.addAttribute("jobs", jobRepository.findAll());
 
         return "index";
     }
@@ -63,11 +65,14 @@ public class HomeController {
         }
 
 
-        Employer employer = employerRepository.findById(employerId).orElseThrow();
+       Optional<Employer> optEmployer = employerRepository.findById(employerId);
+        if (optEmployer.isPresent()) {
+            newJob.setEmployer(optEmployer.get());
+        }
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
 
         newJob.setSkills(skillObjs);
-        newJob.setEmployer(employer);
+
         jobRepository.save(newJob);
         return "redirect:";
     }
@@ -75,7 +80,14 @@ public class HomeController {
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
+        Optional<Job> optionalJob = jobRepository.findById(jobId);
+
+        if (optionalJob.isPresent()) {
+            model.addAttribute("job", optionalJob.get());
             return "view";
+        } else {
+            return "redirect:../";
+        }
     }
 
 }
